@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D&R Preparedness</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/public/css/style.css">
+    <link rel="stylesheet" href="/public/css/home.css">
+    <link rel="stylesheet" href="/public/css/emergencychecklist.css">
+    <link rel="stylesheet" href="/public/css/weather.css">
+    <link rel="stylesheet" href="/public/css/resources.css">
+    <link rel="stylesheet" href="/public/css/contact.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-spinner"></div>
+        <div>Loading...</div>
+    </div>
+
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <img src="logo.png" alt="D&R Logo" class="logo">
+            <h1>D&R Preparedness</h1>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="#home" class="nav-link active" data-section="home">
+                <i class="fas fa-home"></i> Home
+            </a></li>
+            <li><a href="#checklist" class="nav-link" data-section="checklist">
+                <i class="fas fa-clipboard-list"></i> Emergency Checklist
+            </a></li>
+            <li><a href="#weather" class="nav-link" data-section="weather">
+                <i class="fas fa-cloud-sun"></i> Weather Alerts
+            </a></li>
+            <li><a href="#resources" class="nav-link" data-section="resources">
+                <i class="fas fa-book-medical"></i> Resources
+            </a></li>
+            <li><a href="#contact" class="nav-link" data-section="contact">
+                <i class="fas fa-envelope"></i> Contact
+            </a></li>
+        </ul>
+
+        <div class="sidebar-footer">
+            <div id="weather-ticker" role="status" aria-live="polite">
+                <span id="weather-alert">Loading weather updates...</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content" role="main">
+        <!-- Home Section -->
+        <section id="home" class="section active" aria-labelledby="welcome-title">
+            <div class="welcome-banner">
+                <h2 id="welcome-title">Welcome to Emergency Preparedness</h2>
+                <p>Your comprehensive guide to safety and readiness</p>
+            </div>
+
+            <div class="quick-actions">
+                <div class="action-card">
+                    <h3>Checklist Status</h3>
+                    <div class="progress-container" role="progressbar" aria-labelledby="progress-label">
+                        <div id="overall-progress" class="progress"></div>
+                        <span id="progress-label" class="progress-label">0% Complete</span>
+                    </div>
+                    <button class="nav-button" data-section="checklist">
+                        <i class="fas fa-arrow-right"></i> View Checklist
+                    </button>
+                </div>
+
+                <div class="action-card">
+                    <h3>Nearest Shelters</h3>
+                    <p>Find emergency shelters and safe locations in your area</p>
+                    <button class="view-map-btn">
+                        <i class="fas fa-map-marked-alt"></i> View Map
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Checklist Section -->
+        <section id="checklist" class="section" aria-labelledby="checklist-title">
+            <div class="section-header">
+                <h2 id="checklist-title">Emergency Preparedness Checklist</h2>
+                <div class="section-actions">
+                    <button id="save-checklist">
+                        <i class="fas fa-save"></i> Save Progress
+                    </button>
+                    <button id="print-checklist">
+                        <i class="fas fa-print"></i> Print
+                    </button>
+                    <button id="share-checklist">
+                        <i class="fas fa-share-alt"></i> Share
+                    </button>
+                    <button id="reset-checklist">
+                        <i class="fas fa-redo"></i> Reset
+                    </button>
+                </div>
+            </div>
+
+            <div class="checklist-grid">
+                <div class="checklist-category">
+                    <h3>Essential Supplies</h3>
+                    <div class="checklist-items">
+                        <div class="checklist-item">
+                            <input type="checkbox" id="water" data-item="water" class="checklist-checkbox">
+                            <label for="water">Water (1 gallon per person per day)</label>
+                            <button class="info-button" data-info="water-info" aria-label="Water supply information">i</button>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="food" data-item="food" class="checklist-checkbox">
+                            <label for="food">Non-perishable food (10-day supply)</label>
+                            <button class="info-button" data-info="food-info" aria-label="Food supply information">i</button>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="firstaid" data-item="firstaid" class="checklist-checkbox">
+                            <label for="firstaid">First aid kit</label>
+                            <button class="info-button" data-info="firstaid-info" aria-label="First aid kit information">i</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Weather Section -->
+        <section id="weather" class="section" aria-labelledby="weather-title">
+            <h2 id="weather-title">Weather Alerts</h2>
+            <div class="weather-dashboard">
+                <div id="current-alerts" class="current-alerts">
+                    <div class="loading-spinner">Loading weather data...</div>
+                </div>
+
+                <div class="weather-map">
+                    <img src="/api/placeholder/800/400" alt="Weather Map" id="weather-map">
+                </div>
+
+                <div class="weather-details-grid">
+                    <div class="weather-detail-card" aria-labelledby="temperature-label">
+                        <span id="temperature-display" class="weather-value">--</span>
+                        <span id="temperature-label" class="weather-label">Temperature</span>
+                    </div>
+
+                    <div class="weather-detail-card" aria-labelledby="humidity-label">
+                        <span id="humidity-display" class="weather-value">--</span>
+                        <span id="humidity-label" class="weather-label">Humidity</span>
+                    </div>
+
+                    <div class="weather-detail-card" aria-labelledby="wind-speed-label">
+                        <span id="wind-speed-display" class="weather-value">--</span>
+                        <span id="wind-speed-label" class="weather-label">Wind Speed</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resources Section -->
+        <section id="resources" class="section" aria-labelledby="resources-title">
+            <h2 id="resources-title">Emergency Resources</h2>
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <h3><i class="fas fa-phone-alt"></i> Emergency Contacts</h3>
+                    <ul>
+                        <li><strong>Emergency:</strong>
+                            <a href="tel:911" class="emergency-phone">911</a>
+                        </li>
+                        <li><strong>Police (non-emergency):</strong>
+                            <a href="tel:+1234567890" class="phone-number">123-456-7890</a>
+                        </li>
+                        <li><strong>Fire Department:</strong>
+                            <a href="tel:+1234567890" class="phone-number">123-456-7890</a>
+                        </li>
+                    </ul>
+                    <button class="save-contacts-btn">
+                        <i class="fas fa-save"></i> Save Contacts
+                    </button>
+                </div>
+
+                <div class="resource-card">
+                    <h3><i class="fas fa-hospital"></i> Medical Facilities</h3>
+                    <ul>
+                        <li>
+                            <strong>City Hospital:</strong>
+                            <a href="tel:+1234567890" class="phone-number">123-456-7890</a>
+                            <address class="address">123 Medical Center Dr</address>
+                        </li>
+                        <li>
+                            <strong>Urgent Care:</strong>
+                            <a href="tel:+1234567890" class="phone-number">123-456-7890</a>
+                            <address class="address">456 Health Pkwy</address>
+                        </li>
+                    </ul>
+                    <button class="view-map-btn">
+                        <i class="fas fa-map-marked-alt"></i> View on Map
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section" aria-labelledby="contact-title">
+            <h2 id="contact-title">Contact Us</h2>
+            <form class="contact-form" novalidate>
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" required minlength="2">
+                    <span id="name-error" class="error-message"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required>
+                    <span id="email-error" class="error-message"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" required minlength="10"></textarea>
+                    <span id="message-error" class="error-message"></span>
+                    <span class="char-counter">0/500</span>
+                </div>
+
+                <button type="submit" id="contact-submit">
+                    <i class="fas fa-paper-plane"></i> Send Message
+                </button>
+            </form>
+        </section>
+    </main>
+
+    <!-- Modals -->
+    <div id="info-modal" class="modal" role="dialog" aria-labelledby="modal-title">
+        <div class="modal-content">
+            <button class="close-button" aria-label="Close modal">&times;</button>
+            <div id="modal-content"></div>
+        </div>
+    </div>
+
+    <div id="share-modal" class="modal" role="dialog" aria-labelledby="share-modal-title">
+        <div class="modal-content">
+            <button class="close-button" aria-label="Close modal">&times;</button>
+            <h3 id="share-modal-title">Share Checklist</h3>
+            <div class="share-options">
+                <button class="share-option" data-type="email">
+                    <i class="fas fa-envelope"></i> Email
+                </button>
+                <button class="share-option" data-type="print">
+                    <i class="fas fa-print"></i> Print
+                </button>
+                <button class="share-option" data-type="download">
+                    <i class="fas fa-download"></i> Download PDF
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Boundary -->
+    <div id="error-boundary" class="error-boundary" style="display: none;">
+        <div class="error-content">
+            <h3>Oops! Something went wrong</h3>
+            <p>An unexpected error occurred.</p>
+            <button onclick="window.location.reload()">
+                <i class="fas fa-redo"></i> Reload Page
+            </button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/public/js/script.js" defer></script>
+</body>
+</html>
